@@ -1,28 +1,20 @@
-import pyodbc
-class Databasesingleton:
+import  pyodbc
+class DBSingleton:
     _instance = None
+
     def __new__(cls, *args, **kwargs):
         if not cls._instance:
-            cls._instance = super(Databasesingleton,cls).__new__(cls)
+            cls._instance = super(DBSingleton, cls).__new__(cls)
             cls._instance.connection = None
-            cls._instance.cursor = None
         return cls._instance
 
-    def __init__(self,connection_string):
+    def connect(self, connection_string):
         if self.connection is None:
-            self.connection_string=connection_string
-            self.connection = pyodbc.connect(self.connection_string)
-            self.cursor = self.connection.cursor()
-
-    def execute_query(self,query,params = None):
-        if params:
-            self.execute_query(query,params)
-        else:
-            self.execute_query(query)
-        return self.cursor.fetchall()
+            self.connection = pyodbc.connect(connection_string)
+        return self.connection
 
     def close(self):
-        if self.cursor:
-            self.cursor.close()
         if self.connection:
             self.connection.close()
+            self.connection = None
+

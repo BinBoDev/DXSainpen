@@ -1,24 +1,18 @@
-import  pandas as pd
-import pyodbc
-#connectionString = f'DRIVER={{ODBC Driver 18 for SQL Server}};SERVER={SERVER3\SQLEXPRESS};DATABASE={KhoUni};UID={sa};PWD={2911}'
-#connectionString = f'DRIVER={{ODBC Driver 18 for SQL Server}};SERVER={SERVER3\SQLEXPRESS};DATABASE={KhoUni};UID={sa};PWD={2911}'
+from tkinter import *
+def login():
+    pass
+wdLogin = Tk()
+wdLogin.title("Đăng nhập")
+#Logo Mitsubishi
+icon = PhotoImage(file='mitsubishi.png')
+wdLogin.iconphoto(True,icon)
+wdLogin.geometry("300x150")
+wdLogin.resizable(False,False)
+label1 = Label(wdLogin,text="User name").grid(row = 0,column = 0,padx = 10)
+entry1 = Entry(wdLogin,width=30).grid(row =0,column = 1,pady = 10)
+label2 =Label(wdLogin,text="Pass word").grid(row = 1,column = 0,padx=10)
+entry2 = Entry(wdLogin,width=30,show="*").grid(row =1,column = 1,pady=10)
+button1 = Button(wdLogin,text="Đăng nhập",command=login).grid(row = 2,column = 1,sticky = "W")
+button2 = Button(wdLogin,text="Thoát",command=wdLogin.quit).grid(row = 2,column = 1,sticky = "E")
 
-
-try:
-    # Kết nối đến SQL Server
-   #Driver={ODBC Driver 18 for SQL Server};Server=localhost;Database=TestDB;UID=sa;PWD=your_password;Encrypt=yes;TrustServerCertificate=yes;
-
-    conn = pyodbc.connect("Driver={ODBC Driver 18 for SQL Server};Server=SERVER3\\SQLEXPRESS;Database=KhoUni;UID=sa;PWD=2911;Encrypt=yes;TrustServerCertificate=yes;")
-    print("Kết nối thành công!")
-    query = 'select [userName] from [dbo].[Account]'
-    #df = pd.read_sql(query, conn)
-    cursor =conn.cursor()
-    cursor.execute(query)
-    rows = cursor.fetchall()
-    for row in rows:
-        print(row)
-    # Đóng kết nối
-    conn.close()
-except Exception as e:
-    print("Kết nối không thành công!")
-    print(e)
+wdLogin.mainloop()
